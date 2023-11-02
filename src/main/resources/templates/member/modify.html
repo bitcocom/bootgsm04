@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원수정화면</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>회원수정화면</h2>
+    <form th:action="@{/modify}" method="post">
+        <input type="hidden" name="id" th:value="${member.id}">
+        <div class="form-group">
+            <label for="memName">이름:</label>
+            <input type="text" class="form-control" id="memName" name="memName" th:value="${member.memName}">
+        </div>
+        <div class="form-group">
+            <label for="memAge">나이:</label>
+            <input type="text" class="form-control" id="memAge" name="memAge" th:value="${member.memAge}">
+        </div>
+        <div class="form-group">
+            <label for="memEmail">이메일:</label>
+            <input type="email" class="form-control" id="memEmail" name="memEmail" th:value="${member.memEmail}">
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-primary" th:href="@{/listView}" role="button">목록</a>
+            <button type="submit" class="btn btn-success">수정</button>
+        </div>
+    </form>
+</div>
+
+<!-- Add Bootstrap JS (Optional) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

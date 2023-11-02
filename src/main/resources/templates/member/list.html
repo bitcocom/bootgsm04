@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Member List</h2>
+  <!-- 로그인 폼 추가 -->
+  <form th:action="@{/login}" method="post" th:if="${not #authorization.expression('isAuthenticated()')}" class="form-inline">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <label for="username" class="mr-sm-2">아이디:</label>
+    <input type="text" id="username" name="username" class="form-control">
+    <label for="password" class="mr-sm-2">패스워드:</label>
+    <input type="password" id="password" name="password" class="form-control">
+    <button type="submit" class="btn btn-primary">로그인</button>
+    <a href="#" th:href="@{/oauth2/authorization/google}" class="social">구글<i class="fab fa-google-plus-g"></i></a>
+  </form>
+  <!-- 로그인 정보 및 로그아웃 버튼 -->
+  <div th:if="${#authorization.expression('isAuthenticated()')}">
+    <p>로그인 사용자: <span th:text="${#authentication.principal.member.memName}"></span></p>
+    <a th:href="@{/logout}" class="btn btn-danger">로그아웃</a>
+    <ul class="list-unstyled mb-2">
+      <li th:each="role : ${#authentication.authorities}" th:text="${role.authority}"></li>
+    </ul>
+   <!-- <ul class="list-unstyled mb-2">
+      <li th:each="role : ${#authentication.principal.member.roles}" th:text="${role.name}"></li>
+    </ul>-->
+    <button class="btn btn-sm btn-primary" th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">USER</button>
+    <button class="btn btn-sm btn-primary" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">USER</button>
+    <button class="btn btn-sm btn-primary" th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'',''ROLE_MANAGER'')')}">USER</button>
+    <button class="btn btn-sm btn-info" th:if="${#authorization.expression('hasAuthority(''ROLE_MANAGER'')')}">MANAGER</button>
+    <!--<button class="btn btn-sm btn-success" th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">ADMIN</button>
+    -->
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+      <button class="btn btn-sm btn-success">ADMIN</button>
+    </div>
+
+    <a th:href="@{/member/admin}" class="btn btn-danger">관리자 페이지</a>
+  </div>
+  <br/>
+  <a th:href="@{/member/memberRegister}" class="btn btn-primary">회원가입</a> <!-- 회원가입 버튼 추가 -->
+  <table class="table">
+    <thead>
+    <tr>
+      <th>num</th>
+      <th>memId</th>
+      <th>memName</th>
+      <th>memAge</th>
+      <th>memEmail</th>
+      <!--<th>Delete</th>-->
+      <th>글쓰기</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${lists}">
+      <td th:text="${member.id}"></td>
+      <td>
+        <a th:href="@{/member/view/{id}(id=${member.id})}">
+          <span th:text="${member.username}"></span>
+        </a>
+      </td>
+      <td th:text="${member.memName}"></td>
+      <td th:text="${member.memAge}"></td>
+      <td th:text="${member.memEmail}"></td>
+      <td>
+        <a th:href="@{/post/postWrite/{id}(id=${member.id})}" th:if="${#authorization.expression('isAuthenticated()') and member.username == #authentication.principal.username}" class="btn btn-info btn-sm">글쓰기</a>
+      </td>
+      <!-- <td>
+         <a th:href="@{/memberDelete/{id}(id=${member.id})}" class="btn btn-danger">Delete</a>
+         <a th:href="@{/memberDelete1/{memId}(memId=${member.memId})}" class="btn btn-danger">Delete</a>
+         <a th:href="@{/memberDelete2/{memEmail}(memEmail=${member.memEmail})}" class="btn btn-danger">Delete</a>
+       </td>-->
+    </tr>
+    </tbody>
+  </table>
+  // Spring Security DB
+  // oAuth2(SNS)
+  // JWT
+</div>
+</body>
+</html>

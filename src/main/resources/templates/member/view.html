@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원상세보기</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>회원상세보기</h2>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th>번   호:</th>
+            <td th:text="${member.id}"></td>
+        </tr>
+        <tr>
+            <th>아이디:</th>
+            <td th:text="${member.username}"></td>
+        </tr>
+        <tr>
+            <th>이   름:</th>
+            <td th:text="${member.memName}"></td>
+        </tr>
+        <tr>
+            <th>나   이:</th>
+            <td th:text="${member.memAge}"></td>
+        </tr>
+        <tr>
+            <th>이메일:</th>
+            <td th:text="${member.memEmail}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="btn-group">
+        <a class="btn btn-primary" th:href="@{/listView}" role="button">목록</a>
+        <a class="btn btn-secondary" th:href="@{/modify/{id}(id=${member.id})}" role="button">수정</a>
+        <a class="btn btn-danger" th:href="@{/memberDelete/{id}(id=${member.id})}" role="button">삭제</a>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS (Optional) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

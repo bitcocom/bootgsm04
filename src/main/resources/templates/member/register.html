@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Registration</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h2>Join the Membership</h2>
+  <form action="memberRegister" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div class="form-group">
+      <label for="username">ID:</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="memName">Name:</label>
+      <input type="text" class="form-control" id="memName" name="memName" required>
+    </div>
+    <div class="form-group">
+      <label for="memAge">Age:</label>
+      <input type="number" class="form-control" id="memAge" name="memAge" required>
+    </div>
+    <div class="form-group">
+      <label for="memEmail">Email:</label>
+      <input type="email" class="form-control" id="memEmail" name="memEmail" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign up</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>
