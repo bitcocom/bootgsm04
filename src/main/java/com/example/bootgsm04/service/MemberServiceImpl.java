@@ -65,4 +65,8 @@ public class MemberServiceImpl implements MemberService{
             // update member set mem_name=?,mem_age=?, mem_email=? where id=?
         }
     }
+    @Override
+    public Optional<Member> getMember(String username) {
+        return memberRepository.findByUsername(username);
+    }
 }

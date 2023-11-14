@@ -20,5 +20,7 @@ public interface MemberService {
     public void memberDelete2(String memEmail);
     public Member memberDetail(Long id);
     public void memberModify(Member m);
-    }
+
+    Optional<Member> getMember(String usernmame);
+}
 
