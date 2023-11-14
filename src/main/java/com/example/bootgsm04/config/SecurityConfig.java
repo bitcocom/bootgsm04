@@ -31,13 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //abstract
         http
                 .authorizeRequests()// 1. 요청 URL에 따라 -> 인증과 권한을 설정
                // .antMatchers("/member/admin").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/post/**").authenticated() //해당 경로는 로그인 권한이 있어야 함
+                   .antMatchers("/post/**").authenticated() //해당 경로는 로그인 권한이 있어야 함
                 //.antMatchers("/admin/**").hasRole("ROLE_ADMIN")
                 // 관리자 버튼
                 // 매니저 버튼
                 // 일반 사용자
-                .anyRequest().permitAll() //모든 경로 허용
-                .and()
+                  .anyRequest().permitAll() //모든 경로 허용
+                  .and()
                 .formLogin() //2. 로그인 폼에 대한 설정 : /login -> 내부 로그인 UI
                 // /member/listView -> 개발자가 새로 정의한 로그인 UI(list.html)
                     .loginPage("/member/listView") // @Controller
@@ -53,10 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //abstract
                     .clearAuthentication(true)
                     .deleteCookies("JSESSIONID")
                     .invalidateHttpSession(true)
-                .and()
+                    .and()
+                // 2. oauth2Login()
                 .oauth2Login()
-                .loginPage("/member/listView")
-                .defaultSuccessUrl("/member/listView");
+                    .loginPage("/member/listView")
+                    .defaultSuccessUrl("/member/listView");
 
     }
 

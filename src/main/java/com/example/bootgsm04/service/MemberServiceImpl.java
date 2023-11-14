@@ -36,6 +36,12 @@ public class MemberServiceImpl implements MemberService{
         // 비즈니스 로직 구현~~~
         return memberRepository.save(vo);//insert into member ~~
     }
+
+    @Override
+    public Member oAuth2memberRegister(Member vo) {
+        return memberRepository.save(vo);
+    }
+
     public List<Member> getMembers(){
         return memberRepository.findAll(Sort.by(Sort.Direction.ASC, "username"));// select * from member
     }

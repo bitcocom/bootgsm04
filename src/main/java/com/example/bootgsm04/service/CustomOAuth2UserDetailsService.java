@@ -47,6 +47,7 @@ public class CustomOAuth2UserDetailsService extends DefaultOAuth2UserService {
         String provider=oAuth2MemberInfo.getProvider();//google, naver
         String providerId=oAuth2MemberInfo.getProviderId();
         String username=provider+"_"+providerId;
+        // ?
         String password=passwordEncoder.encode("겟인테어");
         //String password="겟인테어";
         String memEmail=oAuth2MemberInfo.getEmail();
@@ -75,10 +76,10 @@ public class CustomOAuth2UserDetailsService extends DefaultOAuth2UserService {
             member.setMemName(memName);
             member.setMemEmail(memEmail);
             member.setMemAge(0); // 수정
-            member.setRoles(roles);
-            memberService.memberRegister(member); // 강제로 회원가입
+            member.setRoles(roles); //USER
+            memberService.oAuth2memberRegister(member); // 강제로 회원가입
         }
-        return new CustomMember(member,oauth2User.getAttributes());
+        return new CustomMember(member);
     }
 }
 /*

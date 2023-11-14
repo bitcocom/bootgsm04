@@ -5,6 +5,7 @@ import com.example.bootgsm04.service.MemberService;
 import com.example.bootgsm04.service.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -75,5 +76,11 @@ public class MemberController {
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String admin(){
         return "member/admin"; //admin.html
+    }
+
+    @GetMapping("/login/oauth2/code/naver")
+    public String callback(OAuth2UserRequest userRequest){
+        // 구현~~~~~
+        return "";
     }
 }

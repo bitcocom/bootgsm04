@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface MemberService {
     public Member memberRegister(Member vo);
+    public Member oAuth2memberRegister(Member vo);
     public List<Member> getMembers();
     public void memberDelete(Long id);
     @Transactional
