@@ -37,7 +37,7 @@ public class CustomOAuth2UserDetailsService extends DefaultOAuth2UserService {
             oAuth2MemberInfo=new GoogleOAuth2Member(oauth2User.getAttributes());
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")){
             System.out.println("페이스북 로그인 요청");
-            //oAuth2UserInfo=new FacebookUserInfo(oauth2User.getAttributes());
+            //oAuth2UserInfo=new FacebookOAuth2Member(oauth2User.getAttributes());
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
             System.out.println("네이버 로그인 요청");
             oAuth2MemberInfo=new NaverOAuth2Member((Map)oauth2User.getAttributes().get("response"));

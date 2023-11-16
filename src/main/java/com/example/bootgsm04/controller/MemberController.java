@@ -78,9 +78,5 @@ public class MemberController {
         return "member/admin"; //admin.html
     }
 
-    @GetMapping("/login/oauth2/code/naver")
-    public String callback(OAuth2UserRequest userRequest){
-        // 구현~~~~~
-        return "";
-    }
+
 }
