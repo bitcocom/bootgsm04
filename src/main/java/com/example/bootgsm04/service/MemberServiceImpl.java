@@ -45,6 +45,12 @@ public class MemberServiceImpl implements MemberService{
     public List<Member> getMembers(){
         return memberRepository.findAll(Sort.by(Sort.Direction.ASC, "username"));// select * from member
     }
+
+    @Override
+    public List<Member> getChartMembers() {
+        return memberRepository.findAll(Sort.by(Sort.Direction.DESC, "id")); // select SQL
+    }
+
     public void memberDelete(Long id){
         memberRepository.deleteById(id); // delete from member where id=?
     }

@@ -3,6 +3,7 @@ package com.example.bootgsm04.controller;
 import com.example.bootgsm04.entity.Member;
 import com.example.bootgsm04.service.MemberService;
 import com.example.bootgsm04.service.MemberServiceImpl;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @Controller  // 응답(JSON) : {     }
 @RequestMapping("/member")
@@ -78,7 +79,33 @@ public class MemberController {
         return "member/admin"; //admin.html
     }
     @GetMapping("/chart") // /member/chart
-    public String chart(){
-        return "chart/chart";
+    public String chart(Model model){
+        List<Member> members = memberService.getChartMembers();
+        // chart 정보를 가공(data)
+        System.out.println(members.toString());
+
+        Map<String, Object> chartData = new HashMap<>();
+        List<String> categories = new ArrayList<>();
+        List<Integer> series = new ArrayList<>();
+
+        for (Member member : members) {
+            categories.add(member.getUsername()); // X-axis labels
+            int postCount = member.getPosts().size();
+            series.add(postCount); // Y-axis values
+        }
+        chartData.put("categories", categories);
+
+        Map<String, Object> seriesMap = new HashMap<>();
+        seriesMap.put("name", "postCount");
+        seriesMap.put("data", series);
+
+        chartData.put("series", Collections.singletonList(seriesMap));
+
+        Gson gson = new Gson();
+        String chartDataJSON = gson.toJson(chartData);
+
+        model.addAttribute("chartDataJSON", chartDataJSON);
+
+        return "chart/chart"; //chart.html
     }
 }

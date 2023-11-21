@@ -8,36 +8,24 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-   <div id="chart-area"></div>
-   <script>
+   <div id="bar-chart"></div>
+   <script th:inline="javascript">
        $(document).ready(function(){
-        const el = document.getElementById('chart-area');
-        const data = {
-        categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        series: [
-          {
-            name: 'Budget',
-            data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
-          },
-          {
-            name: 'Income',
-            data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
-          },
-          {
-            name: 'Expenses',
-            data: [4000, 4000, 6000, 3000, 4000, 5000, 7000],
-          },
-          {
-            name: 'Debt',
-            data: [3000, 4000, 3000, 1000, 2000, 4000, 3000],
-          },
-        ],
-      };
-      const options = {
-        chart: { title: 'Monthly Revenue', width: 900, height: 400 },
-      };
-      const chart = toastui.Chart.barChart({ el, data, options });
-     });
+            var chartData = /*[[${chartDataJSON}]]*/ "";
+            if (chartData) {
+                var el = document.getElementById('bar-chart');
+                var options = {
+                    chart: { title: '사용자별 게시글의 수', width: 500, height: 300 }
+                };
+                console.log(chartData);
+                var bar_chart = toastui.Chart.barChart({
+                    el: el,
+                    data: JSON.parse(chartData), // Parse the JSON data here
+                    options: options
+                });
+                bar_chart.showSeriesDataLabel();
+              }
+       });
    </script>
 </body>
 </html>

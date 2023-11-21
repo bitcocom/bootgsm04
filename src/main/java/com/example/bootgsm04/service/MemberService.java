@@ -14,6 +14,8 @@ public interface MemberService {
     public Member memberRegister(Member vo);
     public Member oAuth2memberRegister(Member vo);
     public List<Member> getMembers();
+    public List<Member> getChartMembers();
+
     public void memberDelete(Long id);
     @Transactional
     public void memberDelete(String memId);
