@@ -77,6 +77,8 @@ public class MemberController {
     public String admin(){
         return "member/admin"; //admin.html
     }
-
-
+    @GetMapping("/chart") // /member/chart
+    public String chart(){
+        return "chart/chart";
+    }
 }
