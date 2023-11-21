@@ -10,7 +10,7 @@
 <body>
 <div class="container mt-4">
     <h2>회원수정화면</h2>
-    <form th:action="@{/modify}" method="post">
+    <form th:action="@{/member/modify}" method="post">
         <input type="hidden" name="id" th:value="${member.id}">
         <div class="form-group">
             <label for="memName">이름:</label>
@@ -25,7 +25,7 @@
             <input type="email" class="form-control" id="memEmail" name="memEmail" th:value="${member.memEmail}">
         </div>
         <div class="btn-group">
-            <a class="btn btn-primary" th:href="@{/listView}" role="button">목록</a>
+            <a class="btn btn-primary" th:href="@{/member/listView}" role="button">목록</a>
             <button type="submit" class="btn btn-success">수정</button>
         </div>
     </form>

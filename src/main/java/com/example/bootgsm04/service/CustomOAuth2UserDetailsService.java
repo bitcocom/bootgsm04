@@ -79,7 +79,7 @@ public class CustomOAuth2UserDetailsService extends DefaultOAuth2UserService {
             member.setRoles(roles); //USER
             memberService.oAuth2memberRegister(member); // 강제로 회원가입
         }
-        return new CustomMember(member);
+        return new CustomMember(member); // 세션
     }
 }
 /*

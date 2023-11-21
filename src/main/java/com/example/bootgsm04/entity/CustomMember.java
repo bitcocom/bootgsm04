@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class CustomMember extends User implements OAuth2User{
     private Member member;
-    private Map<String, Object> attributes; // G,F,N,K 의 사용자 정보
+    //private Map<String, Object> attributes; // G,F,N,K 의 사용자 정보
 
     //private String memName;
     public CustomMember(Member member) { //               USER, MANAGER, ADMIN
@@ -31,11 +31,11 @@ public class CustomMember extends User implements OAuth2User{
         }
         return list;
     }*/
-   public CustomMember(Member member, Map<String, Object> attributes) {
+   /*public CustomMember(Member member, Map<String, Object> attributes) {
        super(member.getUsername(), member.getPassword(), getAuthorities(member.getRoles())); // User클래스에 넘겨 준다.
        this.member=member;
        this.attributes=attributes;
-   }
+   }*/
     private static Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
            return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
@@ -50,7 +50,7 @@ public class CustomMember extends User implements OAuth2User{
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes;
+        return null;
     }
     @Override
     public String getName() {

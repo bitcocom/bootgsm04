@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //abstract
                 .authorizeRequests()// 1. 요청 URL에 따라 -> 인증과 권한을 설정
                // .antMatchers("/member/admin").hasAuthority("ROLE_ADMIN")
                    .antMatchers("/post/**").authenticated() //해당 경로는 로그인 권한이 있어야 함
+                   .antMatchers("/member/view/**").authenticated()
                 //.antMatchers("/admin/**").hasRole("ROLE_ADMIN")
                 // 관리자 버튼
                 // 매니저 버튼
