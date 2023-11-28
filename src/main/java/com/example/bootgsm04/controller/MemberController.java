@@ -134,4 +134,10 @@ public class MemberController {
        */
         return "chart/grid"; // grid.html
     }
+
+    @GetMapping("/cal")
+    public String cal(){
+        //일정관리 table
+        return "chart/calendar"; //calendar.html
+    }
 }

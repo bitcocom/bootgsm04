@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <button class="button is-rounded today">Today</button>
+        <button class="button is-rounded prev">
+            <img alt="prev" src="./images/ic-arrow-line-left.png" srcset="./images/ic-arrow-line-left@2x.png 2x, ./images/ic-arrow-line-left@3x.png 3x">
+        </button>
+        <button class="button is-rounded next">
+            <img alt="prev" src="./images/ic-arrow-line-right.png" srcset="
+                ./images/ic-arrow-line-right@2x.png 2x,
+                ./images/ic-arrow-line-right@3x.png 3x
+              ">
+        </button>
+        <span class="navbar--range"></span>
+    </nav>
+</header>
+<main id="app"></main>
+   <script th:inline="javascript">
+       $(document).ready(function(){
+         var MOCK_CALENDARS = [
+  {
+    id: '1',
+    name: 'My Calendar',
+    color: '#ffffff',
+    borderColor: '#9e5fff',
+    backgroundColor: '#9e5fff',
+    dragBackgroundColor: '#9e5fff',
+  },
+  {
+    id: '2',
+    name: 'Work',
+    color: '#ffffff',
+    borderColor: '#00a9ff',
+    backgroundColor: '#00a9ff',
+    dragBackgroundColor: '#00a9ff',
+  },
+  {
+    id: '3',
+    name: 'Family',
+    color: '#ffffff',
+    borderColor: '#DB473F',
+    backgroundColor: '#DB473F',
+    dragBackgroundColor: '#DB473F',
+  },
+  {
+    id: '4',
+    name: 'Friends',
+    color: '#ffffff',
+    borderColor: '#03bd9e',
+    backgroundColor: '#03bd9e',
+    dragBackgroundColor: '#03bd9e',
+  },
+  {
+    id: '5',
+    name: 'Travel',
+    color: '#ffffff',
+    borderColor: '#bbdc00',
+    backgroundColor: '#bbdc00',
+    dragBackgroundColor: '#bbdc00',
+  },
+];
+         var Calendar = window.tui.Calendar;
+         var cal = new Calendar('#app', {
+         defaultView: 'week',
+         calendars: MOCK_CALENDARS,
+         });
+       });
+   </script>
+</body>
+</html>
