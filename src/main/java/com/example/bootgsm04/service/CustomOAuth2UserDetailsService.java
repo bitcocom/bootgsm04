@@ -26,6 +26,7 @@ public class CustomOAuth2UserDetailsService extends DefaultOAuth2UserService {
         System.out.println("2.getAccessToken:" + userRequest.getAccessToken().getTokenValue());
         // 이부분에서 사용자 정보 객체를 얻어온다(OAuth2User)
         OAuth2User oauth2User = super.loadUser(userRequest);
+        System.out.println("oauth2User.getAuthorities():" + oauth2User.getAuthorities());
         System.out.println("3.getAttributes:" + oauth2User.getAttributes()); // <사용자정보>
         // Map<String, Object>
         // OAuth2User -> CustomMember

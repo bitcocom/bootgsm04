@@ -1,6 +1,9 @@
 package com.example.bootgsm04.entity;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 // 게시물(번호,제목,내용,작성일,회원id(FK))
 @Entity
@@ -10,10 +13,13 @@ public class Post { // post
    private Long id;
    private String title;
    private String content;
-   private LocalDateTime regdate=LocalDateTime.now(); // ?
+
+   @CreationTimestamp
+   private Timestamp regdate;
    // member_id(FK)
    @ManyToOne
    @JoinColumn(name = "member_id") // FK(외래키)
+   @JsonIgnore
    private Member member; //id
   /* alter table post
    add constraint fk_post_member_id
@@ -43,15 +49,15 @@ public class Post { // post
       this.content = content;
    }
 
-   public LocalDateTime getRegdate() {
-      return regdate;
-   }
+    public Timestamp getRegdate() {
+        return regdate;
+    }
 
-   public void setRegdate(LocalDateTime regdate) {
-      this.regdate = regdate;
-   }
+    public void setRegdate(Timestamp regdate) {
+        this.regdate = regdate;
+    }
 
-   public Member getMember() {
+    public Member getMember() {
       return member;
    }
 

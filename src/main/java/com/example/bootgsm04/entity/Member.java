@@ -3,6 +3,7 @@ package com.example.bootgsm04.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Member {  // 권한(ROLE)
     @Column(length = 50, nullable = false, unique = true)
     private String memEmail;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Post> posts;
 
     // 권한저장필드 : 1개권한->?[여러개 권한?(Member<-M -T- N->Role)]

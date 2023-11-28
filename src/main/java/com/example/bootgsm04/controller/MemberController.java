@@ -3,6 +3,7 @@ package com.example.bootgsm04.controller;
 import com.example.bootgsm04.entity.Member;
 import com.example.bootgsm04.service.MemberService;
 import com.example.bootgsm04.service.MemberServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -85,21 +86,23 @@ public class MemberController {
         System.out.println(members.toString());
 
         Map<String, Object> chartData = new HashMap<>();
+        // categories
         List<String> categories = new ArrayList<>();
-        List<Integer> series = new ArrayList<>();
+        // series : Map -> {name, data(dataCount)}
+        Map<String, Object> series = new HashMap<>();
+        List<Integer> dataCount = new ArrayList<>();
 
         for (Member member : members) {
-            categories.add(member.getUsername()); // X-axis labels
+            categories.add(member.getUsername()); // Y-axis labels
             int postCount = member.getPosts().size();
-            series.add(postCount); // Y-axis values
+            dataCount.add(postCount); // Z-axis values
         }
         chartData.put("categories", categories);
 
-        Map<String, Object> seriesMap = new HashMap<>();
-        seriesMap.put("name", "postCount");
-        seriesMap.put("data", series);
+        series.put("name", "postCount");
+        series.put("data", dataCount);
 
-        chartData.put("series", Collections.singletonList(seriesMap));
+        chartData.put("series", Collections.singletonList(series));
 
         Gson gson = new Gson();
         String chartDataJSON = gson.toJson(chartData);
@@ -107,5 +110,28 @@ public class MemberController {
         model.addAttribute("chartDataJSON", chartDataJSON);
 
         return "chart/chart"; //chart.html
+    }
+    // Grid 보기 요청 처리
+    @GetMapping("/grid")
+    public String grid(Model model){
+        // 회원 목록을 가져 오기 -> GSON -> JSON
+        List<Member> members = memberService.getMembers();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String membersJson = objectMapper.writeValueAsString(members);
+            System.out.println(membersJson);
+            // JSON 문자열을 모델에 추가
+            model.addAttribute("membersJson", membersJson);
+        } catch (Exception e) {
+            // 처리 중 예외가 발생할 수 있으므로 예외 처리를 해야 합니다.
+            e.printStackTrace();
+        }
+
+      /*
+        Gson gson = new Gson();
+        String membersJson = gson.toJson(members);
+        model.addAttribute("membersJson", membersJson);
+       */
+        return "chart/grid"; // grid.html
     }
 }
